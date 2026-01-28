@@ -8,7 +8,6 @@
     gap: 4px !important;
     margin-bottom: 0 !important;
     display: inline-flex !important;
-    background-color: red !important;
 
     img {
       width: 26px;
@@ -25,10 +24,6 @@
 .cart__checkout-button.button.button--primary.button--full-width.focus-inset {
   display: inline-flex !important;
   gap: 0.75rem !important; // adjust as needed
-}
-
-#juo-go-to-checkout-with-ideal {
-  background-color: red !important;
 }
 
 .template-cart {
