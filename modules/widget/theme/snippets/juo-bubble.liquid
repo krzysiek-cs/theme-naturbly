@@ -1,0 +1,105 @@
+{% liquid
+  assign first_selling_plan_allocation = variant.selling_plan_allocations | first
+  assign selling_plan_allocation = variant.selected_selling_plan_allocation | default: first_selling_plan_allocation
+  assign selling_plan_name = selling_plan_allocation.selling_plan.name
+%}
+
+<style>
+  .juo-bubble {
+    padding: 12px 18px 12px 14px;
+    background: #fafafa;
+    color: #212d78;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 230px;
+    margin-bottom: 24px;
+    line-height: 1;
+  }
+  .juo-bubble .j-selling-plan {
+    margin: 0;
+    font-weight: 700;
+  }
+  .juo-bubble .j-question {
+    position: relative;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #212d78;
+    color: #f7f6f5;
+    margin: 0;
+    line-height: 1;
+  }
+  .juo-bubble .j-tooltip {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    display: none;
+    padding: 13px 18px;
+    background: #212d78;
+    width: 173px;
+    color: #f7f6f5;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    transform: translate(-50%, -100%);
+    border-radius: 5px;
+  }
+  .juo-bubble .j-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: #212d78;
+    color: #f7f6f5;
+    transform: translate(-50%, 50%) rotate(45deg);
+    border-radius: 2px;
+  }
+  .juo-bubble .j-question:hover .j-tooltip {
+    display: block;
+  }
+</style>
+<div class="juo-bubble juo-reset">
+  <p class="j-selling-plan">{{ selling_plan_name }}</p>
+  <p class="j-question">
+    ?<span class="j-tooltip"
+      >No commitment required. Cancel your subscription any time. Easily manage your delivery date and address.</span
+    >
+  </p>
+</div>
+
+<script>
+  function init() {
+    const forms = Array.from(document.querySelectorAll('form[action$="/cart/add"]'));
+
+    function initSellingPlanInput(form) {
+      let el = form.querySelector('input[name="selling_plan"]');
+
+      if (!el) {
+        el = document.createElement('input');
+        el.type = 'hidden';
+        el.name = 'selling_plan';
+        form.append(el);
+      }
+
+      el.value = {{ selling_plan_allocation.selling_plan.id | json }};
+
+      return el;
+    }
+
+    forms.forEach((form) => initSellingPlanInput(form));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+</script>

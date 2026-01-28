@@ -1,0 +1,210 @@
+{
+  "blocks": [
+    {
+      "type": "juo-custom-widget",
+      "name": "Custom Juo Widget",
+      "settings": [
+        {
+          "type": "header",
+          "content": "General"
+        },
+        {
+          "label": "Default mode",
+          "id": "defaultMode",
+          "type": "select",
+          "options": [
+            {
+              "label": "Subscription",
+              "value": "SUBSCRIPTION"
+            },
+            {
+              "label": "One-time purchase",
+              "value": "OTP"
+            }
+          ],
+          "default": "OTP"
+        },
+        {
+          "id": "color",
+          "type": "color",
+          "label": "Color",
+          "default": "#212D78"
+        },
+        {
+          "id": "background",
+          "type": "color",
+          "label": "Background color",
+          "default": "#FAFAFA"
+        },
+        {
+          "id": "border_color",
+          "type": "color",
+          "label": "Border color",
+          "default": "#FAFAFA"
+        },
+        {
+          "id": "border_radius",
+          "type": "range",
+          "label": "Rounded corners radius",
+          "min": 0,
+          "max": 16,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "id": "font_weight",
+          "label": "Font weight",
+          "type": "select",
+          "options": [
+            {
+              "value": "",
+              "label": "Inherit"
+            },
+            {
+              "value": "300",
+              "label": "Light"
+            },
+            {
+              "value": "400",
+              "label": "Base"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "600",
+              "label": "Semibold"
+            },
+            {
+              "value": "700",
+              "label": "Bold"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "id": "heading_font_weight",
+          "label": "Heading font weight",
+          "type": "select",
+          "options": [
+            {
+              "value": "inherit",
+              "label": "Inherit"
+            },
+            {
+              "value": "300",
+              "label": "Light"
+            },
+            {
+              "value": "400",
+              "label": "Base"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "600",
+              "label": "Semibold"
+            },
+            {
+              "value": "700",
+              "label": "Bold"
+            }
+          ],
+          "default": "700"
+        },
+        {
+          "id": "block_margin_top",
+          "type": "range",
+          "label": "Block margin: top",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "id": "block_margin_bottom",
+          "type": "range",
+          "label": "Block margin: bottom",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 24
+        },
+        {
+          "type": "header",
+          "content": "Badge"
+        },
+        {
+          "id": "badge_label",
+          "type": "text",
+          "label": "Label",
+          "default": "Save up to 20%"
+        },
+        {
+          "id": "badge_color",
+          "type": "color",
+          "label": "Text color",
+          "default": "#FFF"
+        },
+        {
+          "id": "badge_background",
+          "type": "color",
+          "label": "Background color",
+          "default": "#98C4D1"
+        },
+        {
+          "type": "header",
+          "content": "Subscription option"
+        },
+        {
+          "id": "subscription_label",
+          "type": "text",
+          "label": "Label",
+          "default": "Subscription"
+        },
+        {
+          "id": "subscription_background",
+          "type": "color",
+          "label": "Background color",
+          "default": "#FAFAFA"
+        },
+        {
+          "id": "subscription_uvps",
+          "type": "richtext",
+          "label": "UVPs"
+        },
+        {
+          "type": "header",
+          "content": "One-time purchase option"
+        },
+        {
+          "id": "otp_label",
+          "type": "text",
+          "label": "Label",
+          "default": "One-time purchase"
+        },
+        {
+          "id": "otp_background",
+          "type": "color",
+          "label": "Background color",
+          "default": "#FAFAFA"
+        },
+        {
+          "type": "header",
+          "content": "Advanced"
+        },
+        {
+          "id": "custom_css",
+          "type": "textarea",
+          "label": "Custom CSS"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "name": "@juo/theme-skeleton",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm run lint && pnpm run clean && vite build",
+    "clean": "rm -fr dist/*",
+    "dev": "pnpm run theme:pull && pnpm run clean && (pnpm run dev:vite & pnpm run dev:shopify)",
+    "push": "shopify theme push --path=dist --store=$npm_package_config_store",
+    "dev:pull": "shopify theme pull -d --path=.theme --store=$npm_package_config_store",
+    "dev:vite": "vite",
+    "dev:shopify": "shopify theme dev --path=dist --store=$npm_package_config_store",
+    "theme:pull": "shopify theme pull --live --path=.theme --store=$npm_package_config_store",
+    "theme:diff": "pnpm run theme:pull && pnpm run build && cd dist && git diff --src-prefix=old --no-prefix --no-index --minimal -- ../.theme .",
+    "lint": "pnpm run lint:eslint && pnpm run lint:prettier",
+    "lint:prettier": "prettier --check 'src/**/*{scss,js,ts,mjs,cjs,json}'",
+    "lint:eslint": "eslint 'src/**/*.{ts,js}'",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@shopify/cli": "3.78.1",
+    "@shopify/prettier-plugin-liquid": "^1.4.1",
+    "@types/node": "22",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-vue": "5.2.1",
+    "chokidar": "^3.5.3",
+    "eslint": "^8.55.0",
+    "eslint-plugin-compat": "^4.1.1",
+    "fs-extra": "^11.2.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
+    "minimatch": "^9.0.3",
+    "prettier": "^2.8.4",
+    "sass": "^1.58.1",
+    "typescript": "5.3.3",
+    "vite": "5.2.1",
+    "vite-plugin-shopify": "3.1.1",
+    "zod": "^3.22.4"
+  },
+  "config": {
+    "store": "example.myshopify.com"
+  },
+  "browserslist": "defaults, not op_mini all",
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,scss,md}": "prettier --write"
+  },
+  "dependencies": {
+    "vue": "^3.3.12"
+  }
+}

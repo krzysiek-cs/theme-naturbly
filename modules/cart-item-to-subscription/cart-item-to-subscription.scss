@@ -1,0 +1,85 @@
+.juo-subscribe-switcher {
+  padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+
+  .pill-loader {
+    visibility: hidden !important;
+    position: absolute;
+    right: 0;
+    top: 4px;
+    transform: translate(-50%, -50%);
+  }
+  &.loading {
+    pointer-events: none;
+    position: relative;
+    &::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      content: "";
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .pill-loader {
+      visibility: visible !important;
+    }
+  }
+
+  .juo-subscribe-cart__selling-plans-checkbox {
+    width: 16px;
+    height: 16px;
+    appearance: none;
+    position: relative;
+    top: 2px;
+    margin-right: 2px;
+
+    &::before {
+      width: 16px;
+      height: 16px;
+      display: block;
+      border: 1px solid #000;
+      content: "";
+      border-radius: 4px;
+    }
+
+    &:checked::before {
+      background-color: #ffb74a;
+    }
+
+    &:checked::after {
+      display: block;
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
+      border: solid #000;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  label {
+    font-size: 15px;
+    color: #ffb74a;
+    font-weight: 600;
+  }
+
+  select {
+    max-width: 180px;
+    font-size: 13px;
+    appearance: none;
+    margin-top: 4px;
+    padding: 3px 35px 3px 10px;
+    border: 1px solid #000;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 22 22' width='1rem' stroke-width='1.5' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' /></svg>");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 6px) 6px !important;
+    background-size: 16px;
+    border-radius: 4px;
+  }
+}

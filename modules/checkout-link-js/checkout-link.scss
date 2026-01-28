@@ -1,0 +1,38 @@
+$text-color: #fff;
+$gap: 7px;
+
+.juo-ideal-checkout-link-wrapper {
+  width: 100%;
+  margin-bottom: 5px;
+
+  #juo-go-to-checkout-with-ideal {
+    width: 100%;
+    gap: $gap !important;
+    margin-bottom: 0 !important;
+    color: $text-color;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+
+    img {
+      width: 30px !important;
+      height: auto !important;
+      max-height: 40px;
+      margin-right: 4px;
+    }
+
+    svg {
+      width: 40px !important;
+      height: auto !important;
+      max-height: 40px;
+      margin-right: 4px;
+    }
+
+    &[disabled] {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+  }
+}

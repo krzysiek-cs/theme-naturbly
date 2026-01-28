@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "name": "Root",
+      "path": "./"
+    },
+    {
+      "name": "🚀 Dist",
+      "path": "./dist"
+    },
+    {
+      "name": "🏗 Overrides",
+      "path": "./overrides"
+    },
+    {
+      "name": "🛠 Src",
+      "path": "./src"
+    }
+  ],
+  "settings": {
+    "liquid.format.enable": false,
+    "typescript.tsdk": "./node_modules/typescript/lib"
+  }
+}

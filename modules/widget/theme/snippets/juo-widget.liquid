@@ -1,0 +1,185 @@
+<!-- Juo Subscriptions -->
+
+{% liquid
+  assign variant = product.selected_or_first_available_variant | default: product.variants.first
+
+  assign selling_plan_groups = product.selling_plan_groups | where: 'app_id', 'juo-subscriptions'
+  assign selling_plan_group_ids = selling_plan_groups | map: 'id'
+
+  assign selected_selling_plan = variant.selected_selling_plan_allocation
+  if selected_selling_plan == null
+    assign selected_selling_plan = variant.selling_plan_allocations | first
+  endif
+
+  assign default_otp = ''
+  assign default_subscription = ''
+
+  if variant.selected_selling_plan_allocation != null or product.requires_selling_plan or block.settings.defaultMode == 'SUBSCRIPTION'
+    assign default_subscription = 'checked'
+  else
+    assign default_otp = 'checked'
+  endif
+
+  assign selected_plan = ''
+%}
+
+{% render 'juo-tag' with '@/modules/widget/index.ts' %}
+
+{% assign variant_selling_plan_allocations_length = variant.selling_plan_allocations | size %}
+
+{% if product.has_only_default_variant
+  and variant_selling_plan_allocations_length == 1
+  and product.requires_selling_plan
+%}
+  {% render 'juo-bubble', variant: variant %}
+
+{% elsif selling_plan_groups.size > 0 or request.design_mode %}
+  <div id="juo-subscription-widget" class="juo-reset">
+    {% if block.settings.badge_label != '' %}
+      <div class="j-badge">
+        <p>
+          {{ block.settings.badge_label }}
+        </p>
+      </div>
+    {% endif %}
+    <fieldset class="j-widget">
+      <div class="j-subscription j-widget-option" part="option option--subscription">
+        <label class="j-option" label part="label">
+          <span class="j-label"
+            ><input
+              part="radio"
+              type="radio"
+              value="subscription"
+              name="mode"
+              {{ default_subscription }}
+            >
+            <span>{{ block.settings.subscription_label }}</span>
+          </span>
+          <span class="j-badge-wrapper">
+            <p part="price price--subscription" class="j-price">
+              <strike part="compare-price" class="j-compare-price"
+                ><span class="money">{{ variant.compare_price | money }}</span></strike
+              >
+              <span part="subscription-price"
+                ><span class="money">{{ variant.price | money }}</span></span
+              >
+            </p>
+          </span>
+        </label>
+        <div class="j-subscription-details">
+          {% if block.settings.subscription_collapsible and product.requires_selling_plan == false %}
+            <div class="collapsible">
+          {% endif %}
+          <div class="j-select-wrapper">
+            <select data-ref="selling-plan" part="select">
+              {% for plan in variant.selling_plan_allocations %}
+                {% if selling_plan_group_ids contains plan.selling_plan_group_id %}
+                  {% if selected_selling_plan.selling_plan.id == plan.selling_plan_id %}
+                    {% assign selected_plan = 'selected' %}
+                  {% else %}
+                    {% assign selected_plan = '' %}
+                  {% endif %}
+                  <option
+                    value="{{ plan.selling_plan.id }}"
+                    {{ selected_plan }}
+                  >
+                    {{ plan.selling_plan.name }}
+                  </option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+          <div class="j-slot">
+            {{ block.settings.subscription_uvps }}
+          </div>
+          {% if block.settings.subscription_collapsible and product.requires_selling_plan == false %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      {% unless product.requires_selling_plan %}
+        <div class="j-otp j-widget-option">
+          <label class="j-option" label part="label">
+            <span class="j-label">
+              <input
+                part="radio"
+                type="radio"
+                value="otp"
+                name="mode"
+                {{ default_otp }}
+              >
+              <span>{{ block.settings.otp_label }}</span></span
+            >
+            <p class="j-price">
+              <strike part="compare-price" class="j-compare-price"
+                ><span class="money">
+                  {%- if product.has_only_default_variant -%}
+                    {{- product.compare_at_price | money -}}
+                  {%- else -%}
+                    {{- variant.compare_price | money -}}
+                  {%- endif -%}
+                </span></strike
+              >
+              <span part="price price--base">
+                <span class="money">{{ variant.price | money }}</span>
+              </span>
+            </p>
+          </label>
+        </div>
+      {% endunless %}
+    </fieldset>
+    {% if selling_plan_groups.size == 0 and request.design_mode %}
+      <p style="margin-top: 11px; text-align: center; font-size: 11px;">
+        The widget will not be visible outside the theme editor because there are no selling plans available for the
+        product, or the store is not eligible for subscriptions.
+      </p>
+    {% endif %}
+  </div>
+
+  <script type="application/json" id="juo-subscription-widget-data">
+    [
+      [{% for variant in product.variants %}
+        {
+          "id": {{ variant.id | json }},
+          "price": {{ variant.price | json }},
+          "available": {{ variant.available | json }},
+          "sellingPlans": [{% assign first = true %}{% for selling_plan in variant.selling_plan_allocations %}
+            {% if selling_plan_group_ids contains selling_plan.selling_plan_group_id %}
+              {% if first == false %},{% else %}{% assign first = false %}{% endif %}{
+                "name": {{ selling_plan.selling_plan.name | json }},
+                "price": {{ selling_plan.price | json }},
+                "comparePrice": {{ selling_plan.compare_at_price | json }},
+                "id": {{ selling_plan.selling_plan.id | json }}
+              }
+            {% endif %}
+          {% endfor %}]
+        }{% if forloop.last == false %},{% endif %}
+      {% endfor %}],
+      {{ variant.id | json }},
+      {{ shop.money_format | strip_html | strip | json }}
+    ]
+  </script>
+
+  <style>
+    #juo-subscription-widget {
+      --color: {{ block.settings.color | default: "currentColor" }};
+      --background: {{ block.settings.background }};
+      --border-color: {{ block.settings.border_color }};
+      --border-radius: {{ block.settings.border_radius }}px;
+      --font-weight: {{ block.settings.font_weight | default: "inherit" }};
+      --heading-font-weight: {{ block.settings.heading_font_weight }};
+      --block-margin-top: {{ block.settings.block_margin_top }}px;
+      --block-margin-bottom: {{ block.settings.block_margin_bottom }}px;
+
+      --subscription-background: {{ block.settings.subscription_background }};
+
+      --otp-background: {{ block.settings.otp_background }};
+
+      --badge-color: {{ block.settings.badge_color }};
+      --badge-background: {{ block.settings.badge_background }};
+    }
+
+    {{ block.settings.custom_css }}
+  </style>
+{% endif %}
+<!-- /Juo Subscriptions -->

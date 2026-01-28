@@ -1,0 +1,77 @@
+.juo-ideal-checkout-link-wrapper ~ button {
+  margin-top: 0;
+}
+.juo-ideal-checkout-link-wrapper {
+  width: 100%;
+
+  #juo-go-to-checkout-with-ideal {
+    gap: 4px !important;
+    margin-bottom: 0 !important;
+    color: #fff;
+
+    img {
+      width: 26px;
+      height: 26px;
+      margin-right: 4px;
+    }
+
+    &[disabled] {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+  }
+}
+
+.template-cart {
+  .juo-ideal-checkout-link-wrapper {
+    margin-bottom: 15px;
+  }
+}
+
+.btn-checkout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &[name="checkout"] {
+    margin-top: 15px !important;
+  }
+
+  img,
+  svg {
+    margin: 0 2px;
+  }
+
+  img:first-of-type {
+    margin-left: 10px;
+  }
+}
+
+.cart__ctas.has-subscription {
+  flex-direction: column;
+
+  #checkout {
+    gap: 4px !important;
+
+    img,
+    svg {
+      width: 38px;
+      height: 38px;
+      margin-left: 4px;
+    }
+    svg {
+      width: 58px;
+      height: auto;
+      left: 0;
+      display: block;
+      position: relative !important;
+      background: #fff;
+      padding: 5px;
+      border-radius: 2px;
+
+      path {
+        visibility: visible !important;
+      }
+    }
+  }
+}

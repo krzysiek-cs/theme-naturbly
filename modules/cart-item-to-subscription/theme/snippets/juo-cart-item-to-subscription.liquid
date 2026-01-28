@@ -1,0 +1,75 @@
+{% liquid
+  assign checkbox_label = 'Upgrade to Flexible Plan & Save'
+  assign available_selling_plans = '' | split: ','
+  assign variant = line_item.product.variants | where: 'id', line_item.variant_id | first
+
+  assign variant_selling_plan_groups_id = variant.selling_plan_allocations | map: 'selling_plan_group_id' | uniq
+  assign product_item_selling_plan_groups = line_item.product.selling_plan_groups | where: 'app_id', 'juo-subscriptions' | uniq
+  assign checked = false
+
+  if line_item.selling_plan_allocation != null
+    assign checked = true
+    assign current_plan_id = line_item.selling_plan_allocation.selling_plan.id
+  endif
+%}
+
+{% if product_item_selling_plan_groups.size > 0 %}
+  {% render 'juo-tag' with '@/modules/cart-item-to-subscription/index.ts' %}
+
+  {% for variant_selling_plan_group_id in variant_selling_plan_groups_id %}
+    {% for product_item_selling_plan_group in product_item_selling_plan_groups %}
+      {% if product_item_selling_plan_group.id == variant_selling_plan_group_id %}
+        {% assign available_selling_plans = product_item_selling_plan_group
+          | map: 'selling_plans'
+          | concat: available_selling_plans
+        %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+
+  <div class="juo-subscribe-switcher">
+    <label>
+      <input
+        type="checkbox"
+        class="juo-subscribe-cart__selling-plans-checkbox"
+        name="switch-to-subscription"
+        data-variant-id="{{ line_item.variant_id }}"
+        {% if checked == true %}
+          checked="checked"
+        {% endif %}
+      >
+      <span>
+        {{- checkbox_label }}
+        {{ available_selling_plans.first.price_adjustments.first.value }}%</span
+      >
+    </label>
+    <select
+      name="selling_plan"
+      class="juo-subscribe-cart__selling-plan-switcher--select {% if checked == false %}hidden{% endif %}"
+      data-variant-id="{{ line_item.variant_id }}"
+    >
+      {% for selling_plan in available_selling_plans %}
+        <option
+          value="{{ selling_plan.id }}"
+          {% if current_plan_id == selling_plan.id %}
+            selected
+          {% endif %}
+        >
+          {{ selling_plan.name }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <pill-loader class="pill-loader">
+      <div class="loader-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <svg class="loader-checkmark" fill="none" width="9" height="8" viewBox="0 0 9 8">
+        <path d="M1 3.5 3.3 6 8 1" stroke="currentColor" stroke-width="2"></path>
+      </svg>
+    </pill-loader>
+  </div>
+{% endif %}

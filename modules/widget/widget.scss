@@ -1,0 +1,380 @@
+#juo-subscription-widget {
+  --color: currentcolor;
+  --background: #faf7f3;
+  --border-color: #faf7f3;
+  --border-radius: 0;
+  --font-weight: inherit;
+  --heading-font-weight: 700;
+  --block-margin-top: 0;
+  --block-margin-bottom: 0;
+
+  // purchase options
+  --subscription-background: transparent;
+  --otp-background: #fff;
+
+  // saving badge
+  --badge-color: #fff;
+  --badge-background: #272727;
+
+  // out of config
+  --input-border-color: #d4d4d4;
+  --input-radio-color: #272727;
+  --select-border-color: #d4d4d4;
+  --compare-price-color: #7c7c7c;
+
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  padding: 0;
+  margin: var(--block-margin-top) 0 var(--block-margin-bottom);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color);
+
+  select,
+  input[type="radio"] {
+    appearance: none;
+  }
+
+  p {
+    width: auto;
+  }
+
+  ul {
+    margin: 16px 0 14px 28px;
+    padding-left: 0;
+    list-style: disc;
+  }
+
+  .j-select-wrapper {
+    position: relative;
+  }
+
+  select {
+    appearance: none;
+    position: relative;
+    font-size: 16px !important;
+    font-weight: 600;
+    padding: 12px;
+    max-width: 100%;
+    width: 100%;
+    font-family: inherit;
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' width='1rem' stroke-width='1.5' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' /></svg>")
+      var(--subscription-background) no-repeat;
+    background-position: calc(100% - 0.75rem) center !important;
+    background-size: 24px;
+    border: 1px solid var(--select-border-color);
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .j-badge-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .j-badge-wrapper p {
+    display: flex;
+  }
+
+  .j-widget:only-child {
+    border-radius: var(--border-radius);
+  }
+
+  .j-badge + .j-widget:first-child {
+    border-top-right-radius: 0;
+  }
+
+  // when save label is present and corners are rounded
+  .j-widget-option:first-child {
+    border-top-left-radius: var(--border-radius);
+  }
+
+  .j-widget-option:nth-child(2) {
+    border-top: none;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+  }
+
+  // discount badge
+
+  .j-custom-select__discount {
+    padding: 2px 6px;
+    font-size: 12px;
+    background-color: var(--badge-discount-background);
+    color: var(--badge-discount-color);
+    font-weight: 600;
+    letter-spacing: normal;
+  }
+  .j-custom-select__discount--hidden {
+    display: none !important;
+  }
+
+  .j-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    padding: 14px;
+    cursor: pointer;
+  }
+
+  .j-option > .j-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: var(--j-sub-label-font-weight);
+  }
+
+  .j-option input + span {
+    font-weight: 500;
+  }
+
+  li {
+    margin: 0;
+    font-size: 16px;
+    line-height: 19px;
+    color: #697278;
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+
+  input[name="mode"] {
+    appearance: none;
+    display: grid;
+    place-content: center;
+    margin: 0 8px 0 0 !important;
+    font: inherit;
+    color: currentcolor;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--input-border-color) !important;
+    border-radius: 50%;
+  }
+
+  input[type="radio"]::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 16px 16px var(--input-radio-color);
+  }
+
+  input[type="radio"]:checked::before {
+    transform: scale(1);
+  }
+
+  .money {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .j-price {
+    display: flex;
+    margin: 0;
+  }
+
+  .j-compare-price .money {
+    margin: 0 3px;
+    color: var(--compare-price-color);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.68;
+    text-decoration: line-through;
+  }
+
+  .j-label-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .j-badge {
+    position: relative;
+    margin: 0 0 -1px;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .j-badge > p {
+    padding: 12px 14px 10px 16px;
+    background-color: var(--badge-background);
+    color: var(--badge-color);
+    // font-weight: var(--heading-font-weight);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 0.09em;
+    border-top-right-radius: var(--border-radius);
+    border-top-left-radius: var(--border-radius);
+  }
+
+  .j-save {
+    display: flex;
+    color: var(--badge-color);
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .j-save.j-reverse {
+    flex-direction: row-reverse;
+  }
+
+  .j-save.j-reverse .j-save-value {
+    margin-left: 4px;
+  }
+
+  .j-subscription,
+  .j-otp {
+    background: #fff;
+    border: 2px solid var(--border-color);
+  }
+
+  .j-otp {
+    background: var(--otp-background);
+  }
+
+  .j-subscription {
+    position: relative;
+    background: var(--subscription-background);
+  }
+
+  .j-subscription-details {
+    padding: 0 14px;
+  }
+
+  .j-custom-select {
+    position: relative;
+  }
+
+  .j-custom-select select {
+    opacity: 0;
+    z-index: 2;
+    position: absolute;
+    inset: 0;
+  }
+
+  .j-custom-select__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+    min-height: 42px;
+    width: 100%;
+    padding: 0 8px;
+    background-color: #fff;
+    border: 2px solid var(--select-border-color);
+  }
+
+  .j-custom-select__wrapper::after {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' width='1rem' stroke-width='1.5' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' /></svg>")
+      #fff no-repeat;
+    background-size: contain;
+    margin: 0 0 0 auto;
+  }
+
+  .j-custom-select__label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 21px;
+  }
+
+  .j-custom-select .j-badge {
+    position: static;
+    transform: none;
+    margin: 8px 0;
+  }
+
+  .j-custom-select .j-badge .save {
+    white-space: nowrap;
+  }
+
+  .j-slot {
+    color: #697278;
+  }
+}
+
+@media screen and (min-width: 375px) {
+  #juo-subscription-widget {
+    .j-compare-price .money {
+      position: relative;
+      margin: 0 6px 0 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: #7c7c7c;
+    }
+
+    .j-custom-select__wrapper {
+      padding: 0 12px;
+    }
+  }
+}
+
+@media screen and (min-width: 460px) {
+  #juo-subscription-widget {
+    font-size: 14px;
+
+    .j-custom-select .j-badge {
+      display: block;
+      margin: 8px 0 8px 20px;
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #juo-subscription-widget {
+    .j-option > .j-label {
+      font-size: 16px;
+    }
+  }
+}
+
+@media screen and (min-width: 1037px) {
+  #juo-subscription-widget {
+    font-size: 16px;
+
+    .j-subscription > .j-option {
+      padding: 24px 12px 20px;
+    }
+
+    .j-otp > .j-option {
+      padding: 24px 12px 20px;
+    }
+
+    .j-select-wrapper {
+      padding: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #juo-subscription-widget {
+    .money {
+      font-size: 16px;
+    }
+
+    .j-custom-select .j-badge {
+      margin: 8px 0 8px 44px;
+    }
+
+    .j-subscription-details {
+      padding: 0 40px;
+    }
+  }
+}
