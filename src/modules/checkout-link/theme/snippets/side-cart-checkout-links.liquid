@@ -1,0 +1,17 @@
+{% for item in cart.items %}
+  {% if item.selling_plan_allocation != null %}
+    {% assign has_selling_plan = true %}
+  {% endif %}
+{% endfor %}
+{% assign has_prepaid = false %}
+{% render 'has-prepaid-plan' with has_prepaid %}
+
+{% if has_selling_plan and has_prepaid == false %}
+  {% render 'juo-checkout-link', classes: 'btn btn-default button-color btn-checkout' %}
+{% endif %}
+
+{% if has_selling_plan %}
+  {% render 'default-checkout-link' %}
+{% else %}
+  <!-- Paste here default checkout button from live theme -->
+{% endif %}

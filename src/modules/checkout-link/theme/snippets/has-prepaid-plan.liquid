@@ -1,0 +1,31 @@
+{% comment %} 
+Usage:
+{% render 'is-prepaid-plan' with has_prepaid %}
+
+{% if has_prepaid == true %}
+  Perform actions for prepaid plans...
+{% endif %}
+{% endcomment %}
+
+{% liquid
+  assign has_prepaid = false
+
+  for item in cart.items
+    assign plan_allocation = item.selling_plan_allocation
+
+    if plan_allocation and plan_allocation.selling_plan.options
+      assign option = plan_allocation.selling_plan.options | first
+      assign values = option.value | split: ';'
+
+      if values.size > 1
+        assign df_value = values[0] | split: ' ' | first
+        assign bf_value = values[1] | split: ' ' | first
+
+        if df_value != bf_value
+          assign has_prepaid = true
+          break
+        endif
+      endif
+    endif
+  endfor
+%}

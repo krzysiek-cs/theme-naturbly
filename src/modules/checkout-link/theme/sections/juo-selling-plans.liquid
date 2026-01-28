@@ -1,0 +1,18 @@
+<template id="juo-selling-plans-map">
+  {
+  {%- for item in cart.items -%}
+    "{{ item.key }}":
+    {%- liquid
+      assign fixed_selling_plan_id = null
+      for selling_plan in item.variant.selling_plan_allocations
+        assign lookup_name = item.selling_plan_allocation.selling_plan.name | append: ' '
+        if selling_plan.selling_plan.recurring_deliveries == false and selling_plan.selling_plan_group_id == item.selling_plan_allocation.selling_plan_group_id and selling_plan.selling_plan.name == lookup_name
+          assign fixed_selling_plan_id = selling_plan.selling_plan.id
+        endif
+      endfor
+    -%}
+    {{ fixed_selling_plan_id | json -}}
+    {%- if forloop.last == false %},{% endif %}
+  {%- endfor -%}
+  }
+</template>
