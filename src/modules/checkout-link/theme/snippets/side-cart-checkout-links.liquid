@@ -14,4 +14,16 @@
   {% render 'default-checkout-link' %}
 {% else %}
   <!-- Paste here default checkout button from live theme -->
+  <button
+              type="submit"
+              id="CartDrawer-Checkout"
+              class="cart__checkout-button button button--{{ settings.cart_button_style }} button--full-width focus-inset"
+              name="checkout"
+              form="CartDrawer-Form"
+              {% if cart == empty %}
+                disabled
+              {% endif %}
+            >
+              
+            </button>
 {% endif %}

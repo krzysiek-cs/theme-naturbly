@@ -535,7 +535,10 @@
                 {{ 'sections.cart.update' | t }}
               </button>
             </noscript>
-
+              {% render 'side-cart-checkout-links' %}
+              {%  comment %}
+                
+              
             <button
               type="submit"
               id="CartDrawer-Checkout"
@@ -548,6 +551,8 @@
             >
               {{ 'sections.cart.checkout' | t }}
             </button>
+              
+            {% endcomment %}
             <a href="{{ routes.cart_url }}" class="cart__link button button--simple button--arrow focus-inset">
               <span>{{ 'general.cart.view' | t: count: cart.item_count }}</span>
               {% render 'icon-button-arrow' %}

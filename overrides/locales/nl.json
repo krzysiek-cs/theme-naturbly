@@ -59,6 +59,7 @@
     },
     "cart": {
       "view": "Winkelwagen bekijken ({{ count }})",
+      "checkout_local_payments": "Betalen met",
       "item_added": "Artikel toegevoegd aan winkelwagen",
       "empty_cart": "Er zit nog niets in je winkelwagen",
       "button_label": "Begin met winkelen"

@@ -9,11 +9,11 @@
   id="juo-go-to-checkout-with-ideal-wrapper"
 >
   <button
-    class="{{ classes }}"
+    class="cart__checkout-button button button--primary button--full-width focus-inset"
     id="juo-go-to-checkout-with-ideal"
     type="button"
   >
-    {{ 'sections.cart.checkout_local_payments' | t }}
+    {{ 'general.cart.checkout_local_payments' | t }}
     <img
       src="{{ 'ideal-logo@2x.png' | asset_url }}"
       alt=""
@@ -30,5 +30,7 @@
     --COLOR-PRIMARY: #be7c4d;
     --COLOR-PRIMARY-OPPOSITE: white;
     --COLOR-PRIMARY-HOVER: #a86637;
+    gap: 0.75rem !important;
+    display: flex !important;
   }
 </style>

@@ -464,7 +464,9 @@
                         {{ 'sections.cart.update' | t }}
                       </button>
                     </noscript>
+                      {% render 'cart-checkout-links' %}
 
+                      {%  comment %}
                     <button
                       type="submit"
                       class="cart__checkout-button button button--primary focus-inset"
@@ -476,7 +478,7 @@
                     >
                       {{ 'sections.cart.proceed_checkout' | t }}
                     </button>
-
+                    {% endcomment %}
                     {%- if additional_checkout_buttons -%}
                       <div class="cart__footer-dynamic-checkout">
                         <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">

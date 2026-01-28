@@ -70,6 +70,7 @@
 		},
 		"cart": {
 			"view": "View Cart",
+			"checkout_local_payments": "Pay with",
 			"item_added": "Cart",
 			"empty_cart": "There’s nothing in your cart yet",
 			"button_label": "Start Shopping"

@@ -14,4 +14,15 @@
   {% render 'default-checkout-link' %}
 {% else %}
   <!-- Paste here default checkout button from live theme -->
+  <button
+                      type="submit"
+                      class="cart__checkout-button button button--primary focus-inset"
+                      name="checkout"
+                      {% if cart == empty %}
+                        disabled
+                      {% endif %}
+                      form="cart"
+                    >
+                      {{ 'sections.cart.proceed_checkout' | t }}
+                    </button>
 {% endif %}
